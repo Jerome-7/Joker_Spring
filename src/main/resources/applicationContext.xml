@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 <!--
 bean元素：描述当前的对象需要由spring容器管理
 id属性：标识对象：未来在应用程序当中可以根据id获取对象
 class：被管理对象的类全名
 
 -->
-    <bean id="service" class="Spring_xml.MseeageService"></bean>
+<!--    <bean id="service" class="Spring_xml.MseeageService"></bean>-->
 
-    <bean id="printer" class="Spring_xml.MessagePrinter">
-        <property name="service" ref="service"></property>
-    </bean>
+<!--    <bean id="printer" class="Spring_xml.MessagePrinter">-->
+<!--        <property name="service" ref="service"></property>-->
+<!--    </bean>-->
+
+    <bean id="CompactDisc" class="Spring_xml01.com.Joker.Demo.soundsystem.CompactDisc"/>
+
+    <bean id="notepad" class="Spring_bean_scope.com.Joker.Dome.Notepad" scope="singleton" lazy-init="true"
+    destroy-method="destroy"
+    init-method="init"/>
+    
+    <context:component-scan base-package="Spring_bean_scope.com.Joker.Dome"/>
+
+    <!--bean的作用域
+        1、单列（Sinleton）
+           在整个应用程序中，只创建bean的一个实例
+        2、原型（Prototype）
+           每次注入或通过Spring上下文获取的时候，都会创建一个新的bean实例
+        3、会话（Session）
+           在Web应用中，为每个会话创建一个bean实例
+        4、请求（request）
+           在Web应用中，为每个请求创建一个bean实例
+    -->
+
+    <bean id="person1" class="Spring_factory.com.Joker.Dome.PersonPactory" factory-method="createPersonl"/>
+
+    <bean id="personFactory" class="Spring_factory.com.Joker.Dome.PersonPactory"/>
+    <bean id="person2" factory-bean="personFactory" factory-method="createPerson2"/>
 </beans>
